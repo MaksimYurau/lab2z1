@@ -40,6 +40,10 @@ public:
 	void pop_back();                                   // удаление элемента из конца вектора
 	void show() const;                                 // вывод в cout содержимого вектора
 
+	bool empty() const;
+	const T& front() const;
+	void pop_front();
+
 protected:
 	void Allocate(size_t _n) {
 		first = new T[_n * sizeof(T)];
@@ -65,6 +69,26 @@ Vect<T>::Vect(const Vect& other) {                    // ----------------  онстр
 #ifdef DEBUG
 	cout << "Copy constructor: " << markName << endl;
 #endif
+}
+
+template <class T>
+bool Vect<T>::empty() const {
+	return first == nullptr;
+}
+
+template<class T>
+const T& Vect<T>::front() const {
+	if (!empty()) {
+		return *first;
+	}
+	throw std::out_of_range("Vect is empty");
+}
+
+template<class T>
+void Vect<T>::pop_front() {
+	if (!empty()) {
+		++first;
+	}
 }
 
 template <class T>
